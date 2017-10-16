@@ -1,0 +1,67 @@
+65816 backend for LCC compiler
+------------------------------
+Jolse Maginnis
+
+INSTALLATION FOR LINUX
+----------------------
+
+If you're reading this, then you should have untarred:
+
+" tar zxvf lcc65816.tar.gz "
+
+In the lcc dir, so it overwrites some of the original files.
+
+The 65816 backend is in mips.md, overwriting the mips backend but who cares!
+:) Some small kludges where needed in gen.c to get the 65816 version
+working, so that also is included..
+
+----------------
+     NOTE!
+----------------
+
+Before you start, make sure you've got the Jos source and have compiled "ja" and
+"ld65", (the assembler and the linker). To do this, run "make" in the jos/btools
+directory of the Jos source. This will also prepare the "ja" config file
+"$(HOME)/.ja", which contains the system include dir.
+
+If you'd like to install the binaries somewhere else as well (E.g. somewhere in
+your PATH), edit the jos/btools/Makefile and change BINDIR to where you'd like
+to install them. Then run "make install".
+
+----------------
+
+Now you need to choose where you want the lcc output files to go.
+I've chosen to make it $(HOME)/lcc/output
+E.g. My lcc source is located at $(HOME)/lcc
+
+If you'd like to put the build files somewhere else, edit BUILDDIR in the
+Makefile.
+
+Now you are ready to compile the compiler! First of all the pre-processor:
+
+" make cpp "
+
+then the compiler proper:
+
+" make rcc "
+
+Then finally it is time to make the compiler driver (in etc/), but before you do so you need to edit scpu.c, and change the #define's to point to the correct locations:
+
+LCCDIR - The same as BUILDDIR
+JOSDIR - The location of the Jos source
+
+Then:
+
+"make scpu"
+
+Then edit the Makefile and change BINDIR to a directory in your path. 
+E.g. $(HOME)/bin
+
+then..
+
+"make install"
+
+Now "lcc" should be ready to roll!
+
+---------------------------------
+jmaginnni@postoffice.utas.edu.au
